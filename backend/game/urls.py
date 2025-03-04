@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import SongList
+from .views import start_game, check_guess
 
 urlpatterns = [
-    path('songs/', SongList.as_view(), name='song-list')
+    path("start-game/", start_game, name="start-game"),
+    path("check-guess/", check_guess, name="check-guess"),
 ]
