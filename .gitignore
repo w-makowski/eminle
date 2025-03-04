@@ -36,6 +36,10 @@ dist-ssr
 *.sln
 *.sw?
 
+# Ignore all migration files except __init__.py
+/game/migrations/*.py
+!/game/migrations/__init__.py
+
 # OS-specific files
 .DS_Store
 
