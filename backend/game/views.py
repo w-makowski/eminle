@@ -30,20 +30,6 @@ def check_guess(request):
     game = get_object_or_404(GameSession, id=game_id)
     correct_song = game.correct_song
 
-    if game.guesses_left <= 0:
-        return Response({
-            'message': 'Game over!',
-            'correct_song': {
-                'song_name': game.correct_song.song_name,
-                'album': game.correct_song.album.name,
-                'track_number': game.correct_song.track_number,
-                'track_length': game.correct_song.track_length,
-                'features': game.correct_song.features
-            }
-        })
-    
-    is_correct = user_guess.lower() == correct_song.song_name.lower()
-
     guessed_song = Song.objects.filter(song_name__iexact=user_guess).first()
     if not guessed_song:
         return Response({
@@ -51,10 +37,35 @@ def check_guess(request):
             'guesses_left': game.guesses_left
         })
     
+    is_correct = user_guess.lower() == correct_song.song_name.lower()
+    
     response_data = process_guess(correct_song, guessed_song)
 
     game.guesses_left -= 1
     game.save()
+
+    if game.guesses_left <= 0:
+        return Response({
+            'message': 'Game over!',
+            'guesses_left': game.guesses_left,
+            'correct_song': {
+                'song_name': correct_song.song_name,
+                'album': correct_song.album.name,
+                'track_number': correct_song.track_number,
+                'track_length': correct_song.track_length,
+                'features': correct_song.features
+            },
+            'hints': {
+                'album_hint': response_data['album']['hint'],
+                'album_color': response_data['album']['color'],
+                'track_number_hint': response_data['track_number']['hint'],
+                'track__number_color': response_data['track_number']['color'],
+                'track_length_hint': response_data['track_length']['hint'],
+                'track_length_color': response_data['track_length']['color'],
+                'features_hint': response_data['features']['color'],
+                'features_color': response_data['features']['color']
+            }
+        })
 
     return Response({
         'guesses_left': game.guesses_left,
@@ -62,3 +73,13 @@ def check_guess(request):
         'guess': response_data
     })
 
+@api_view(['GET'])
+def song_suggestions(request):
+    """Returns list of up to 5 songs matching partial input."""
+    query = request.GET.get("q", "")
+    if not query:
+        return Response([])
+
+    matches = Song.objects.filter(song_name__icontains=query)[:5]
+    suggestions = [{"id": song.id, "name": song.song_name} for song in matches]
+    return Response(suggestions)
