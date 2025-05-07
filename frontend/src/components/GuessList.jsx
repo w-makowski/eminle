@@ -21,6 +21,7 @@ const GuessList = ({ hints }) => {
                 >
                     <ResultBox
                         value={hint.song_name}
+                        color={hint.song_name_color}
                     />
                     <ResultBox
                         value={`${hint.album.value} (${hint.album.hint})`}

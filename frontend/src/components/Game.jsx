@@ -38,11 +38,10 @@ const Game = () => {
                 if (response.won) {
                     setGameOver(true);
                     setMessage('You won!');
-                } else {
-        
-                    setGuessesLeft(response.guesses_left);
-                    setHints([...hints, response.guess]);
                 }
+        
+                setGuessesLeft(response.guesses_left);
+                setHints([...hints, response.guess]);
             }
     
             if (response.guesses_left === 0) {
