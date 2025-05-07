@@ -1,6 +1,23 @@
-# Full Stack Project - Django Backend with React Frontend
+# EMINLE
+
+Web-based game inspired by Yeezle. Users are challenged to guess a randomly selected Eminem song. The game provides hints based on track details, and players can make multiple attempts to find the correct answer.
+
+## Full Stack Project - Django Backend with React Frontend
 
 This is a full-stack web application with a **Django** backend and a **React** frontend. The backend is built using Django REST Framework, while the frontend is developed with React.
+
+
+## Visual Highlights
+
+<div style="display: flex; justify-content: space-between; gap: 20px;">
+  <img src="https://github.com/user-attachments/assets/0508d280-93c4-4698-a20c-2850520bb45e" alt="Starting Page" width="48%" />
+  <img src="https://github.com/user-attachments/assets/99fb2577-0839-4144-b733-f73fe7a140db" alt="Input" width="48%" />
+</div>
+
+<div style="display: flex; justify-content: space-between; gap: 20px; margin-top: 20px;">
+  <img src="https://github.com/user-attachments/assets/2aa358f0-9e8e-4aae-b145-b7d5acbcd063" alt="You Won" width="48%" />
+  <img src="https://github.com/user-attachments/assets/3ef28244-773b-420b-82d5-212257f00e6f" alt="You Lost" width="48%" />
+</div>
 
 ## Technologies Used
 
@@ -9,7 +26,6 @@ This is a full-stack web application with a **Django** backend and a **React** f
 - **Database**: SQLite
 - **Package Managers**: pip (for Python), npm (for JavaScript)
 - **Version Control**: Git
-- **Deployment**: Will be detailed later
 
 ## Setup Instructions
 
@@ -18,7 +34,7 @@ This is a full-stack web application with a **Django** backend and a **React** f
 Clone this repository to your local machine using the following command:
 
 ```bash
-git clone https://github.com/yourusername/eminle.git
+git clone https://github.com/w-makowski/eminle.git
 ```
 
 ### 2. Setting Up the Backend
@@ -91,48 +107,6 @@ git clone https://github.com/yourusername/eminle.git
 
     This will start the React frontend on `http://localhost:3000/`.
 
-### 4. Connecting Backend with Frontend
-
-The frontend will make requests to the backend API, which is served on `http://localhost:8000/` by default. You can modify the `axios` or fetch requests in the React frontend to target this URL for making API calls.
-
-If you're using **Django CORS Headers** to handle cross-origin requests, make sure the backend allows the frontend to connect. You can add this to your backend's settings if you haven't already:
-
-```python
-# settings.py
-INSTALLED_APPS = [
-    ...
-    'corsheaders',
-    ...
-]
-
-MIDDLEWARE = [
-    ...
-    'corsheaders.middleware.CorsMiddleware',
-    ...
-]
-
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',  # Your React frontend URL
-]
-```
-
-### 5. Build the React App for Production (Optional)
-
-To prepare the frontend for production, run the following command:
-
-```bash
-npm run build
-```
-
-This will generate a `build/` directory containing a production-ready version of your React app. You can serve this through your Django backend or deploy it separately.
-
-### 6. Deployment (Optional)
-
-You can deploy the backend (Django) and frontend (React) to services like Heroku, AWS, or DigitalOcean. Here are some common steps:
-
-- **Backend Deployment**: Set up the backend on Heroku, AWS, or another platform. Make sure to configure the `DATABASE_URL` environment variable for PostgreSQL (or use SQLite if you prefer).
-- **Frontend Deployment**: Deploy the React frontend on services like Netlify, Vercel, or a similar platform.
-- **Serving Together**: If you want to serve both backend and frontend from a single domain, you can configure your Django app to serve the static files from the `frontend/build/` directory.
 
 ## Development Workflow
 
